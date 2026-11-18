@@ -80,7 +80,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnPrimary" />
 
-    <!-- Added Required 3rd Button: superButton[cite: 1] -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/superButton"
         android:layout_width="0dp"
@@ -97,7 +96,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnSecondary" />
 
-    <!-- E-Logo color accents -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogout"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="12dp"
+        android:text="Logout"
+        android:textAllCaps="false"
+        android:textColor="@color/e_red"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="12dp"
+        app:strokeColor="@color/e_red"
+        app:strokeWidth="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/superButton" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

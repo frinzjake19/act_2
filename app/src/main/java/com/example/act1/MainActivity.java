@@ -1,46 +1,63 @@
-package com.example.act1; // Make sure this matches your project's package name at the top of your file
+package com.example.act1;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 1. Button 1: "Get Started" -> Goes to SecondActivity[cite: 1]
+        mAuth = FirebaseAuth.getInstance();
+
+        if (mAuth.getCurrentUser() == null) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
+            return;
+        }
+
         MaterialButton btnPrimary = findViewById(R.id.btnPrimary);
-        btnPrimary.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,       SecondActivity.class);
+        if (btnPrimary != null) {
+            btnPrimary.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
-            }
-        });
+            });
+        }
 
-        // 2. Button 2: "Learn More" -> Goes to ThirdActivity[cite: 1]
         MaterialButton btnSecondary = findViewById(R.id.btnSecondary);
-        btnSecondary.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ThirdActivity.class);
+        if (btnSecondary != null) {
+            btnSecondary.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(intent);
-            }
-        });
+            });
+        }
 
-        // 3. Button 3: Required "superButton" -> Goes to FourthActivity[cite: 1]
         MaterialButton superButton = findViewById(R.id.superButton);
-        superButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if (superButton != null) {
+            superButton.setOnClickListener(v -> {
                 Intent intent = new Intent(MainActivity.this, FourthActivity.class);
                 startActivity(intent);
-            }
-        });
+            });
+        }
+
+        MaterialButton btnLogout = findViewById(R.id.btnLogout);
+        if (btnLogout != null) {
+            btnLogout.setOnClickListener(v -> {
+                mAuth.signOut();
+                Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            });
+        }
     }
 }
